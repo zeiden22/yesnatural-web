@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YESNATURAL - Productos Naturales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* VARIABLES DE COLOR */
+    :root {
+      --verde-oscuro: #2e7d32;
+      --verde-claro: #a5d6a7;
+      --gris-claro: #f5f5f5;
+      --blanco: #ffffff;
+      --texto-oscuro: #333333;
+      --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* RESET Y ESTILOS GLOBALES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--texto-oscuro);
+      background: var(--gris-claro);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      color: var(--verde-oscuro);
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--blanco);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 8px;
+    }
+
+    .logo span {
+      font-size: 1.6em;
+      font-weight: 600;
+      color: var(--verde-oscuro);
+    }
+
+    .nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav ul li a {
+      text-decoration: none;
+      color: var(--texto-oscuro);
+      font-weight: 400;
+      transition: color 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--verde-oscuro);
+      transition: width 0.3s ease-in-out;
+    }
+
+    .nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO / BANNER */
+    .hero {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+
+    .hero-overlay {
+      display: none;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--blanco);
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      color: var(--blanco);
+    }
+
+    .hero-text p {
+      font-size: 1.3em;
+      font-weight: 300;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 35px;
+      border-radius: 50px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary {
+      background-color: var(--verde-oscuro);
+      color: var(--blanco);
+    }
+
+    .btn-primary:hover {
+      background-color: #1b5e20;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background-color: var(--verde-claro);
+      color: var(--blanco);
+    }
+
+    .btn-secondary:hover {
+      background-color: #66bb6a;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    }
+
+    /* SECCIÓN PRODUCTOS */
+    .productos {
+      padding: 80px 0;
+      background-color: var(--blanco);
+    }
+
+    .productos h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 50px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .card {
+      background-color: var(--gris-claro);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 25px;
+      text-align: center;
+    }
+
+    .card-body h3 {
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+
+    .card-body p {
+      color: #666;
+    }
+
+    /* SECCIÓN EMOLIENTE */
+    .emoliente {
+      padding: 80px 0;
+      background-color: var(--gris-claro);
+    }
+
+    .emoliente h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 50px;
+    }
+
+    .emoliente-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .emoliente-img {
+      flex: 1 1 400px;
+    }
+
+    .emoliente-img img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: var(--sombra-suave);
+    }
+
+    .emoliente-text {
+      flex: 1 1 400px;
+    }
+
+    .emoliente-text p {
+      font-size: 1.1em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .emoliente-text h3 {
+      margin-top: 25px;
+      font-size: 1.6em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .emoliente-text ul {
+      list-style: none;
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    .emoliente-text ul li {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .emoliente-text ul li::before {
+      content: '✓';
+      color: var(--verde-oscuro);
+      font-weight: bold;
+      position: absolute;
+      left: -20px;
+    }
+
+    /* Sección de Testimonios */
+    .testimonios {
+      padding: 80px 0;
+      background-color: var(--gris-claro);
+      text-align: center;
+    }
+
+    .testimonios h2 {
+      font-size: 2.5em;
+      margin-bottom: 50px;
+      color: var(--verde-oscuro);
+    }
+
+    .testimonios-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonio-card {
+      background-color: var(--blanco);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonio-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .testimonio-card p {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .testimonio-card h4 {
+      font-weight: 600;
+      color: var(--verde-oscuro);
+    }
+
+    /* Sección de Por Qué Elegirnos */
+    .por-que {
+      padding: 80px 0;
+      background-color: var(--blanco);
+      text-align: center;
+    }
+
+    .por-que h2 {
+      font-size: 2.5em;
+      margin-bottom: 50px;
+      color: var(--verde-oscuro);
+    }
+
+    .por-que-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .por-que-card {
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid var(--verde-claro);
+      transition: all 0.3s ease;
+    }
+
+    .por-que-card:hover {
+      background-color: var(--verde-claro);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .por-que-card:hover h3,
+    .por-que-card:hover p {
+      color: var(--blanco);
+    }
+
+    .por-que-card .icon {
+      font-size: 3em;
+      margin-bottom: 10px;
+      display: inline-block;
+      color: var(--verde-oscuro);
+    }
+
+    .por-que-card:hover .icon {
+      color: var(--blanco);
+    }
+
+    .por-que-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    /* SECCIÓN CONTACTO */
+    .contacto {
+      padding: 60px 0;
+      background-color: var(--blanco);
+    }
+
+    .contacto h2 {
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 40px;
+    }
+
+    .contacto-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .contact-form {
+      flex: 1 1 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .contact-form button {
+      width: fit-content;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .contact-info {
+      flex: 1 1 400px;
+      font-size: 1em;
+      color: #555;
+    }
+
+    /* FOOTER */
+    .footer {
+      background-color: var(--verde-oscuro);
+      color: var(--blanco);
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+
+    .footer p {
+      font-size: 0.9em;
+    }
+
+    /* Botones flotantes */
+    .whatsapp-btn, .location-btn {
+      position: fixed;
+      z-index: 999;
+      border-radius: 50%;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      right: 30px;
+    }
+    
+    .whatsapp-btn:hover, .location-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .whatsapp-btn {
+      bottom: 30px;
+      background-color: #25d366;
+    }
+    
+    .location-btn {
+      bottom: 100px;
+      background-color: #4285F4;
+    }
+
+    /* ESTILOS ESPECÍFICOS PARA EL MENÚ DE HAMBURGUESA */
+    .menu-toggle {
+      display: none; /* Ocultar el botón por defecto en escritorio */
+      background: none;
+      border: none;
+      font-size: 2.5em;
+      cursor: pointer;
+      color: var(--verde-oscuro);
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        padding: 15px 20px;
+      }
+      .nav {
+        position: absolute;
+        top: 60px; /* Ajustar según la altura del header */
+        left: 0;
+        width: 100%;
+        background: var(--blanco);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        display: none; /* Ocultar el menú por defecto en móvil */
+        flex-direction: column;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+      }
+      .nav.open {
+        display: flex; /* Mostrar el menú cuando se activa la clase 'open' */
+      }
+      .nav ul {
+        flex-direction: column;
+        padding: 20px 0;
+      }
+      .nav ul li {
+        margin-bottom: 15px;
+      }
+      .menu-toggle {
+        display: block; /* Mostrar el botón de hamburguesa en móvil */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="#">
+          <img src="logo.png" alt="YESNATURAL logo" class="logo-img">
+        </a>
+        <span>YESNATURAL</span>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <nav class="nav" id="main-nav">
+        <ul>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#emoliente">Emoliente Peruano</a></li>
+          <li><a href="#testimonios">Testimonios</a></li>
+          <li><a href="#por-que">¿Por qué elegirnos?</a></li>
+          <li><a href="#contacto">Contáctenos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <img src="imagenes/emoliente-banner.jpg" alt="Emoliente natural" class="hero-img">
+    <div class="hero-text">
+      <h1>Bienvenido a YESNATURAL</h1>
+      <p>Todo lo natural para tu bienestar – productos medicinales y emoliente peruano auténtico</p>
+      <a href="#productos" class="btn btn-primary">Conoce nuestros productos</a>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="productos" class="productos">
+      <h2>Nuestros Productos</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="imagenes/infusiones.jpg" alt="Infusiones Naturales">
+          <div class="card-body">
+            <h3>Infusiones Naturales</h3>
+            <p>Manzanilla, hierba luisa, menta y más.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imagenes/hierbas.jpg" alt="Hierbas Medicinales">
+          <div class="card-body">
+            <h3>Hierbas Medicinales</h3>
+            <p>Boldo, sábila, cedrón y plantas tradicionales.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="imagenes/preparados.jpg" alt="Preparados Especiales">
+          <div class="card-body">
+            <h3>Preparados Especiales</h3>
+            <p>Emolientes, jarabes naturales, tónicos saludables.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="emoliente" class="emoliente">
+      <h2>Emoliente Peruano</h2>
+      <div class="emoliente-content">
+        <div class="emoliente-img">
+          <img src="imagenes/emoliente-ingredientes.jpg" alt="Ingredientes del emoliente">
+        </div>
+        <div class="emoliente-text">
+          <p>El emoliente es una bebida tradicional peruana que ofrece múltiples beneficios para tu salud, además de su sabor y calidez natural.</p>
+          <h3>🌿 Beneficios</h3>
+          <ul>
+            <li>Mejora la digestión.</li>
+            <li>Fortalece el sistema inmunológico.</li>
+            <li>Ayuda a depurar el organismo.</li>
+            <li>Refrescante y energizante.</li>
+          </ul>
+          <h3>Ingredientes que contiene:</h3>
+          <p><strong>Cedrón, manzanilla, boldo, sábila</strong> y endulzado con panela.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonios" class="testimonios">
+      <h2>Lo que dicen nuestros clientes</h2>
+      <div class="testimonios-cards">
+        <div class="testimonio-card">
+          <p>"¡El mejor emoliente que he probado en Ecuador! Me ayudó con mi digestión y se siente muy natural."</p>
+          <h4>— Sofía R.</h4>
+        </div>
+        <div class="testimonio-card">
+          <p>"Compré las infusiones de hierba luisa y son de excelente calidad. El envío fue rápido y el servicio es muy amable."</p>
+          <h4>— Carlos M.</h4>
+        </div>
+        <div class="testimonio-card">
+          <p>"Productos 100% naturales y efectivos. YESNATURAL se ha convertido en mi proveedor de confianza."</p>
+          <h4>— Ana L.</h4>
+        </div>
+      </div>
+    </section>
+
+    <section id="por-que" class="por-que">
+      <h2>¿Por qué elegirnos?</h2>
+      <div class="por-que-cards">
+        <div class="por-que-card">
+          <div class="icon">🌿</div>
+          <h3>100% Natural</h3>
+          <p>Nuestros productos son cultivados y procesados de forma natural, sin químicos ni aditivos artificiales.</p>
+        </div>
+        <div class="por-que-card">
+          <div class="icon">✅</div>
+          <h3>Venta de Productos</h3>
+          <p>Te ofrecemos productos medicinales de la más alta calidad, tanto peruanos como ecuatorianos.</p>
+        </div>
+        <div class="por-que-card">
+          <div class="icon">📦</div>
+          <h3>Venta de medicina</h3>
+          <p>Nuestra medicina es la mejor tenemos para Dolencias, malestares y para relaciones sexuales.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+      <h2>Contáctenos</h2>
+      <div class="contacto-content">
+        <form class="contact-form">
+          <input type="text" name="nombre" placeholder="Tu nombre" required>
+          <input type="email" name="correo" placeholder="Tu correo" required>
+          <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+          <button type="submit" class="btn btn-secondary">Enviar Mensaje</button>
+        </form>
+        <div class="contact-info">
+          <p><strong>Dirección:</strong> <a href="https://www.google.com/maps/search/?api=1&query=-2.20158333,-79.89633333" target="_blank" rel="noopener noreferrer">Tu ciudad Guayaquil, Ecuador</a></p>
+          <p><strong>Teléfono / WhatsApp:</strong> +593 099 304 8325</p>
+          <p><strong>Email:</strong> contacto@yesnatural.com</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 YESNATURAL. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/593993048325" class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Contáctanos por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFF" viewBox="0 0 16 16">
+      <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.601 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+    </svg>
+  </a>
+
+  <a href="https://www.google.com/maps/search/?api=1&query=-2.20158333,-79.89633333" class="location-btn" target="_blank" rel="noopener noreferrer" aria-label="Ver ubicación en Google Maps">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFF" viewBox="0 0 16 16">
+      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+    </svg>
+  </a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const nav = document.getElementById('main-nav');
+
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
